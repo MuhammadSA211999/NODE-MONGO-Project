@@ -55,6 +55,21 @@ router.post('/all', async (req, res) => {
         res.status(500).json({ error: 'could not add todos' })
     }
 })
+
+//put selected todo by id 
+router.put('/selected', async (req, res) => {
+    const { todos } = req.body
+    try {
+        const updatedTodo = await Todo.updateMany({ _id: ids }, { $set: {} })
+        console.log(updatedTodo);
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'cound not updated' })
+    }
+})
+
+
 //put a todo by id 
 router.put('/:id', async (req, res) => {
     const { id } = req.params
@@ -68,6 +83,9 @@ router.put('/:id', async (req, res) => {
         res.status(500).json({ error: 'cound not updated' })
     }
 })
+
+
+
 // delete selected 
 router.delete('/selected', async (req, res) => {
     const { ids } = req.body
