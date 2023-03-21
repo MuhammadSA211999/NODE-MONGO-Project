@@ -20,5 +20,5 @@ const todoSchema = mongoose.Schema({
     }
 })
 // create the todo model based on todoSchema 
-const Todo = new mongoose.model('Todo', todoSchema)
+const Todo = mongoose.model('Todo', todoSchema)
 module.exports = Todo
