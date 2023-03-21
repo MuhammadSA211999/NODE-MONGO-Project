@@ -4,6 +4,17 @@ const Todo = require('../schemas/todoSchema')
 
 //get all todos 
 router.get('/', async (req, res) => {
+    try {
+        const todos = await Todo.find({})
+            .select({ _id: 0, date: 0 })
+            .limit(3)
+        // console.log(todos);
+
+        res.status(200).json({ message: 'success', data: todos })
+    } catch (error) {
+        // console.log(error);
+        res.status(500).json({ error: 'server side error' })
+    }
 
 })
 
@@ -42,9 +53,9 @@ router.post('/all', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const { id } = req.params
     try {
-        const updatedTodo = await Todo.findByIdAndUpdate({ _id: id }, { $set: { title: 'Mosheeee' } }, { new: true })
+        const updatedTodo = await Todo.findByIdAndUpdate({ _id: id }, { $set: { title: 'Mosheeeennnnnn' } }, { new: true })
         res.status(200).json({ messages: 'updated successfully', data: updatedTodo })
-        console.log(updatedTodo);
+        // console.log(updatedTodo);
 
     } catch (error) {
         console.log(error);
