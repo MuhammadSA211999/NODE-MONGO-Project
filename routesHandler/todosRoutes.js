@@ -68,9 +68,29 @@ router.put('/:id', async (req, res) => {
         res.status(500).json({ error: 'cound not updated' })
     }
 })
+// delete selected 
+router.delete('/selected', async (req, res) => {
+    const { ids } = req.body
+    try {
+        const deletingTodos = await Todo.deleteMany({ _id: ids })
+        res.status(200).json({ message: 'success', data: deletingTodos })
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({ message: 'cant delete' })
+    }
+})
 
 //delete a todo by id
 router.delete('/:id', async (req, res) => {
-
+    const { id } = req.params
+    try {
+        const deletingTodo = await Todo.findByIdAndDelete({ _id: id })
+        res.status(200).json({ message: 'success', data: deletingTodo })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: 'cant delete' })
+    }
 })
+
 module.exports = router
