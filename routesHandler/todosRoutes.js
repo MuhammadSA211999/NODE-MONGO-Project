@@ -15,12 +15,18 @@ router.get('/', async (req, res) => {
         // console.log(error);
         res.status(500).json({ error: 'server side error' })
     }
-
 })
 
 //get a todo by id
 router.get('/:id', async (req, res) => {
-
+    const { id } = req.params
+    try {
+        const todo = await Todo.findById({ _id: id })
+        res.status(200).json({ message: 'successfully got todo', todo: todo })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'cant get the todo' })
+    }
 })
 
 // post a todos
