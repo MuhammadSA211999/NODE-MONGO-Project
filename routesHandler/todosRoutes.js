@@ -41,16 +41,15 @@ router.post('/all', async (req, res) => {
 //put a todo by id 
 router.put('/:id', async (req, res) => {
     const { id } = req.params
-    const updatedTodo = await Todo.findByIdAndUpdate({ _id: id }, { $set: { title: 'Learn Sumit Saha' } }, { new: true, useFindAndModify: false }, (err) => {
-        if (err) {
-            res.status(500).json({ error: 'Coun not update' })
-        }
-        else {
-            res.status(200).json({ message: 'Updated successfully' })
-        }
-    })
-    console.log(updatedTodo);
+    try {
+        const updatedTodo = await Todo.findByIdAndUpdate({ _id: id }, { $set: { title: 'Mosheeee' } }, { new: true })
+        res.status(200).json({ messages: 'updated successfully', data: updatedTodo })
+        console.log(updatedTodo);
 
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'cound not updated' })
+    }
 })
 
 //delete a todo by id
